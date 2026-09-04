@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поддержка — Storm VPS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f19;
+            --bg-soft: #111827;
+            --surface: rgba(255, 255, 255, 0.04);
+            --surface-hover: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.35);
+            --success: #34d399;
+            --telegram: #229ed9;
+            --email: #f59e0b;
+            --docs: #a78bfa;
+            --radius: 20px;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 80% 50% at 20% -10%, rgba(99, 102, 241, 0.18), transparent),
+                radial-gradient(ellipse 60% 40% at 90% 10%, rgba(34, 158, 217, 0.12), transparent),
+                radial-gradient(ellipse 50% 30% at 50% 100%, rgba(167, 139, 250, 0.1), transparent);
+        }
+
+        .grid-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.35;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 48px 24px 120px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent-light);
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 12px var(--success);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.85); }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 0%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 540px;
+            margin: 0 auto;
+        }
+
+        .chat-banner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.05));
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.08);
+        }
+
+        .chat-banner-icon {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px var(--accent-glow);
+        }
+
+        .chat-banner-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .chat-banner-text h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .chat-banner-text p {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+        }
+
+        .chat-banner-text strong {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            padding: 28px;
+            border-radius: var(--radius);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            background: var(--surface-hover);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: var(--shadow);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .card-icon--email {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--email);
+        }
+
+        .card-icon--telegram {
+            background: rgba(34, 158, 217, 0.15);
+            color: var(--telegram);
+        }
+
+        .card-icon--docs {
+            background: rgba(167, 139, 250, 0.15);
+            color: var(--docs);
+        }
+
+        .card h3 {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+
+        .card-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover .card-link svg {
+            transform: translateX(4px);
+        }
+
+        .info-block {
+            padding: 28px 32px;
+            border-radius: var(--radius);
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+        }
+
+        .info-block h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .info-block p {
+            color: var(--text-muted);
+            font-size: 0.9375rem;
+        }
+
+        .info-block ul {
+            margin-top: 16px;
+            padding-left: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .info-block li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+        }
+
+        .info-block li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .chat-launcher-wrap {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+        }
+
+        .chat-beacon {
+            position: absolute;
+            inset: -4px;
+            pointer-events: none;
+        }
+
+        .chat-beacon::before,
+        .chat-beacon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            border: 1px solid rgba(129, 140, 248, 0.35);
+            animation: beacon-ring 3s ease-out infinite;
+        }
+
+        .chat-beacon::after {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes beacon-ring {
+            0% { transform: scale(0.95); opacity: 0.35; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+
+        .chat-beacon.hidden {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .chat-launcher {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px 14px 18px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), #4f46e5);
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            animation: launcher-pulse 3.5s ease-in-out infinite;
+        }
+
+        .chat-launcher:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.32);
+        }
+
+        .chat-launcher:active {
+            transform: scale(0.98);
+        }
+
+        .chat-launcher:disabled {
+            opacity: 0.7;
+            cursor: wait;
+            animation: none;
+        }
+
+        .chat-launcher svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        @keyframes launcher-pulse {
+            0%, 100% { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.22); }
+            50% { box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3); }
+        }
+
+        .chat-open-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .chat-open-btn:hover {
+            background: rgba(255, 255, 255, 0.16);
+            transform: translateY(-1px);
+        }
+
+        .chat-launcher.is-unavailable {
+            background: linear-gradient(135deg, #64748b, #475569);
+            animation: none;
+            box-shadow: none;
+        }
+
+        .chat-status {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #fca5a5;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .chat-status.visible {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                padding: 32px 16px 100px;
+            }
+
+            .chat-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .chat-launcher-wrap {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .chat-launcher-label {
+                display: none;
+            }
+
+            .chat-launcher {
+                padding: 16px;
+                border-radius: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="grid-pattern"></div>
+
+    <div class="page">
+        <header class="header">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Служба поддержки
+            </div>
+            <h1>Чем можем помочь?</h1>
+            <p class="subtitle">
+                Мы всегда на связи. Выберите удобный способ — ответим быстро и по делу.
+            </p>
+        </header>
+
+        <div class="chat-banner">
+            <div class="chat-banner-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                </svg>
+            </div>
+            <div class="chat-banner-text">
+                <h2>Онлайн-чат — самый быстрый способ</h2>
+                <p>
+                    Нажмите кнопку <strong>«Нужна помощь?»</strong> в правом нижнем углу экрана —
+                    оператор ответит в течение нескольких минут.
+                </p>
+                <button type="button" class="chat-open-btn" id="chatOpenBanner">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                    Открыть чат
+                </button>
+                <p class="chat-status" id="chatStatus" role="status"></p>
+            </div>
+        </div>
+
+        <p class="section-title">Способы связи</p>
+
+        <div class="cards">
+            <a href="mailto:support@storm-vps.com" class="card">
+                <div class="card-icon card-icon--email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                </div>
+                <h3>Электронная почта</h3>
+                <p>Напишите нам письмо — ответим в рабочее время, обычно в течение нескольких часов.</p>
+                <span class="card-link">
+                    support@storm-vps.com
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+            </a>
+
+            <a href="https://t.me/suppvpnbot" target="_blank" rel="noopener noreferrer" class="card">
+                <div class="card-icon card-icon--telegram">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                    </svg>
+                </div>
+                <h3>Telegram-бот</h3>
+                <p>Удобный бот для быстрых вопросов, статуса заказа и связи с поддержкой прямо в мессенджере.</p>
+                <span class="card-link">
+                    @suppvpnbot
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+            </a>
+
+            <a href="https://docs.storm-vps.com" target="_blank" rel="noopener noreferrer" class="card">
+                <div class="card-icon card-icon--docs">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        <path d="M8 7h8M8 11h6"/>
+                    </svg>
+                </div>
+                <h3>Справочный центр</h3>
+                <p>Инструкции, FAQ и пошаговые руководства — возможно, ответ уже есть в документации.</p>
+                <span class="card-link">
+                    docs.storm-vps.com
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+            </a>
+        </div>
+
+        <div class="info-block">
+            <h2>Перед обращением</h2>
+            <p>Чтобы мы помогли быстрее, подготовьте следующую информацию:</p>
+            <ul>
+                <li>Email или ID аккаунта (из бота, сайта или приложения)</li>
+                <li>Краткое описание проблемы и шаги для её воспроизведения</li>
+                <li>Скриншоты или сообщения об ошибках, если они есть</li>
+            </ul>
+        </div>
+
+        <footer class="footer">
+            &copy; <span id="copyrightYear"></span> Storm VPS. Все права защищены.
+        </footer>
+    </div>
+
+    <div class="chat-launcher-wrap">
+        <div class="chat-beacon" id="chatBeacon" aria-hidden="true"></div>
+        <button type="button" class="chat-launcher" id="chatLauncher" aria-label="Нужна помощь?">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+            </svg>
+            <span class="chat-launcher-label">Нужна помощь?</span>
+        </button>
+    </div>
+
+    <script>
+        document.getElementById("copyrightYear").textContent = new Date().getFullYear();
+
+        window.chatwootSettings = {
+            hideMessageBubble: true,
+            position: "right",
+            type: "standard",
+            launcherTitle: "Нужна помощь?"
+        };
+    </script>
+    <script>
+        (function (d, t) {
+            if (window.__chatwootLoading || window.__chatwootLoaded) {
+                return;
+            }
+            window.__chatwootLoading = true;
+
+            var BASE_URL = "https://supportchat.c-api.net";
+            var WEBSITE_TOKEN = "7zLAph6rwXRjzffGMye7wFg8";
+            var g = d.createElement(t);
+            g.src = BASE_URL + "/packs/js/sdk.js";
+            g.defer = true;
+            g.async = true;
+            g.onload = function () {
+                if (!window.chatwootSDK) {
+                    window.dispatchEvent(new CustomEvent("chatwoot:error", { detail: { reason: "sdk" } }));
+                    return;
+                }
+                window.chatwootSDK.run({
+                    websiteToken: WEBSITE_TOKEN,
+                    baseUrl: BASE_URL
+                });
+                window.__chatwootLoaded = true;
+            };
+            g.onerror = function () {
+                window.dispatchEvent(new CustomEvent("chatwoot:error", { detail: { reason: "network" } }));
+            };
+            (d.body || d.head).appendChild(g);
+        })(document, "script");
+    </script>
+    <script>
+        (function () {
+            var launcher = document.getElementById("chatLauncher");
+            var launcherLabel = launcher.querySelector(".chat-launcher-label");
+            var bannerBtn = document.getElementById("chatOpenBanner");
+            var chatStatus = document.getElementById("chatStatus");
+            var chatReady = false;
+            var unavailableMessage = "Чат временно перегружен (ошибка 429). Попробуйте через несколько минут или напишите на support@storm-vps.com / в Telegram.";
+
+            function showUnavailable(message) {
+                launcher.classList.add("is-unavailable");
+                launcherLabel.textContent = "Чат недоступен";
+                chatStatus.textContent = message;
+                chatStatus.classList.add("visible");
+            }
+
+            function openChat() {
+                if (window.$chatwoot) {
+                    window.$chatwoot.toggle("open");
+                    return true;
+                }
+                if (!chatReady) {
+                    showUnavailable(unavailableMessage);
+                }
+                return false;
+            }
+
+            launcher.addEventListener("click", openChat);
+            bannerBtn.addEventListener("click", openChat);
+
+            window.addEventListener("chatwoot:ready", function () {
+                chatReady = true;
+                launcher.classList.remove("is-unavailable");
+                launcherLabel.textContent = "Нужна помощь?";
+                chatStatus.classList.remove("visible");
+            });
+
+            window.addEventListener("chatwoot:error", function () {
+                showUnavailable(unavailableMessage);
+            });
+
+            setTimeout(function () {
+                if (!chatReady) {
+                    showUnavailable(unavailableMessage);
+                }
+            }, 12000);
+        })();
+    </script>
+</body>
+</html>
